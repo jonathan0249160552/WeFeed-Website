@@ -1,0 +1,2982 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WeFeed — Enterprise Food InsurTech & Benefits Platform</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --forest: #1A3A2A;
+    --forest-dark: #0E2218;
+    --forest-mid: #2B5C40;
+    --ochre: #D4A017;
+    --ochre-light: #F0C84A;
+    --rust: #C15A2E;
+    --rust-light: #E07A50;
+    --cream: #F7F3EC;
+    --cream-dark: #EDE7DB;
+    --sage: #8FAF8A;
+    --sage-light: #C5D9C2;
+    --white: #FFFFFF;
+    --text-dark: #1A2018;
+    --text-mid: #3D5040;
+    --text-muted: #6B7E6A;
+    --border: rgba(26,58,42,0.15);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--cream);
+    color: var(--text-dark);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: var(--forest-dark);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 5%;
+    height: 70px;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+
+  .nav-logo {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--ochre);
+    letter-spacing: 0.05em;
+    text-decoration: none;
+  }
+
+  .nav-logo span { color: var(--white); }
+
+  nav ul {
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+  }
+
+  nav ul a {
+    text-decoration: none;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: rgba(255,255,255,0.8);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  nav ul a:hover { color: var(--ochre); }
+
+  .nav-cta {
+    background: var(--ochre);
+    color: var(--forest-dark) !important;
+    padding: 0.6rem 1.4rem;
+    border-radius: 4px;
+    font-weight: 700 !important;
+    letter-spacing: 0.02em !important;
+    text-transform: none !important;
+    transition: background 0.2s, transform 0.2s !important;
+  }
+
+  .nav-cta:hover { 
+    background: var(--ochre-light) !important; 
+    transform: translateY(-1px);
+  }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    background: var(--forest-dark);
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    align-items: center;
+    padding: 100px 5% 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg-pattern {
+    position: absolute;
+    inset: 0;
+    background-image:
+      radial-gradient(circle at 70% 30%, rgba(143,175,138,0.1) 0%, transparent 60%),
+      radial-gradient(circle at 15% 70%, rgba(212,160,23,0.07) 0%, transparent 45%);
+    pointer-events: none;
+  }
+
+  .hero-left { position: relative; z-index: 1; padding-right: 4rem; }
+
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ochre);
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-eyebrow::before {
+    content: '';
+    display: block;
+    width: 20px;
+    height: 2px;
+    background: var(--ochre);
+  }
+
+  .hero-headline {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(3.2rem, 5.8vw, 5.5rem);
+    font-weight: 800;
+    line-height: 0.95;
+    color: var(--white);
+    letter-spacing: -0.02em;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-headline .accent { color: var(--ochre); }
+  .hero-headline .accent-rust { color: var(--rust-light); }
+
+  .hero-sub {
+    font-size: 1.1rem;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.6;
+    max-width: 540px;
+    margin-bottom: 2.5rem;
+  }
+
+  .btn-group { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+  .btn-primary {
+    display: inline-block;
+    background: var(--ochre);
+    color: var(--forest-dark);
+    font-weight: 700;
+    font-size: 0.95rem;
+    padding: 0.9rem 2.2rem;
+    border-radius: 4px;
+    text-decoration: none;
+    letter-spacing: 0.02em;
+    transition: background 0.2s, transform 0.15s;
+    box-shadow: 0 4px 14px rgba(212,160,23,0.2);
+  }
+
+  .btn-primary:hover { background: var(--ochre-light); transform: translateY(-2px); }
+
+  .btn-outline {
+    display: inline-block;
+    background: transparent;
+    color: rgba(255,255,255,0.9);
+    font-weight: 600;
+    font-size: 0.95rem;
+    padding: 0.9rem 2.2rem;
+    border-radius: 4px;
+    text-decoration: none;
+    border: 1px solid rgba(255,255,255,0.3);
+    transition: border-color 0.2s, color 0.2s, background 0.2s;
+  }
+
+  .btn-outline:hover { border-color: var(--white); color: var(--white); background: rgba(255,255,255,0.05); }
+
+  /* Hero stats */
+  .hero-stats {
+    display: flex;
+    gap: 3rem;
+    margin-top: 4rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .hero-stat-num {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 2.8rem;
+    font-weight: 800;
+    color: var(--white);
+    line-height: 1;
+  }
+
+  .hero-stat-num span { color: var(--ochre); }
+
+  .hero-stat-label {
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-top: 0.4rem;
+  }
+
+  /* Hero visual — supply chain */
+  .hero-right {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 0;
+  }
+
+  .chain-visual {
+    width: 100%;
+    max-width: 460px;
+    background: rgba(255,255,255,0.02);
+    padding: 2rem;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.05);
+  }
+
+  .chain-visual-title {
+    color: rgba(255,255,255,0.4);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+
+  .chain-step {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    padding: 1rem 1.2rem;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 8px;
+    position: relative;
+    transition: all 0.3s ease;
+  }
+
+  .chain-step:hover { 
+    background: rgba(255,255,255,0.06); 
+    border-color: rgba(212,160,23,0.3);
+    transform: translateX(4px);
+  }
+
+  .chain-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    flex-shrink: 0;
+  }
+
+  .chain-step-text h4 {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--white);
+    margin-bottom: 0.1rem;
+  }
+
+  .chain-step-text p {
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.3;
+  }
+
+  .chain-arrow {
+    text-align: center;
+    color: var(--ochre);
+    font-size: 0.9rem;
+    margin: 0.3rem 0;
+    opacity: 0.5;
+  }
+
+  /* ── SECTIONS SHARED ── */
+  section { padding: 7rem 5%; }
+
+  .section-header-center {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto 4.5rem;
+  }
+
+  .section-eyebrow {
+    display: inline-block;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--rust);
+    margin-bottom: 1rem;
+  }
+
+  .section-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(2.4rem, 4.5vw, 3.8rem);
+    font-weight: 800;
+    line-height: 1.05;
+    color: var(--forest-dark);
+    margin-bottom: 1.2rem;
+    letter-spacing: -0.01em;
+  }
+
+  .section-title .accent { color: var(--rust); }
+  .section-title .accent-green { color: var(--forest-mid); }
+
+  .section-sub {
+    font-size: 1.05rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    max-width: 600px;
+  }
+
+  /* ── PROBLEM SECTION ── */
+  #problem {
+    background: var(--white);
+  }
+
+  .problem-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 6rem;
+    align-items: center;
+  }
+
+  .problem-cards { display: flex; flex-direction: column; gap: 1.2rem; margin-top: 2.5rem; }
+
+  .problem-card {
+    padding: 1.6rem;
+    border-left: 4px solid var(--rust);
+    background: var(--cream);
+    border-radius: 0 8px 8px 0;
+    transition: transform 0.2s;
+  }
+
+  .problem-card:hover { transform: translateX(4px); }
+
+  .problem-card h4 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--forest-dark);
+    margin-bottom: 0.4rem;
+  }
+
+  .problem-card p {
+    font-size: 0.88rem;
+    color: var(--text-mid);
+    line-height: 1.5;
+  }
+
+  .problem-stat-block {
+    background: var(--forest-dark);
+    color: var(--white);
+    border-radius: 12px;
+    padding: 3.5rem 3rem;
+    box-shadow: 0 20px 40px rgba(14,34,24,0.1);
+  }
+
+  .big-stat {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 5.5rem;
+    font-weight: 800;
+    color: var(--ochre);
+    line-height: 0.9;
+    display: block;
+  }
+
+  .big-stat-label {
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.6);
+    line-height: 1.5;
+    margin-top: 0.6rem;
+  }
+
+  .stat-divider {
+    border: none;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    margin: 2rem 0;
+  }
+
+  /* ── ABOUT US SECTION ── */
+  #about {
+    background: var(--white);
+    border-top: 1px solid var(--border);
+  }
+
+  .about-visual {
+    background: var(--forest-dark);
+    border-radius: 8px;
+    padding: 2.5rem;
+  }
+
+  .about-visual h3 {
+    color: var(--ochre);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+  }
+
+  .protocol-block {
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .protocol-block:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+    margin-bottom: 0;
+  }
+
+  .protocol-block h4 {
+    color: var(--white);
+    font-size: 1rem;
+    margin-bottom: 0.2rem;
+  }
+
+  .protocol-block p {
+    color: rgba(255,255,255,0.6);
+    font-size: 0.85rem;
+    line-height: 1.4;
+  }
+
+  /* ── SOLUTIONS (PRODUCTS) ── */
+  #solution {
+    background: var(--cream);
+  }
+
+  .solution-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: end;
+    margin-bottom: 4.5rem;
+  }
+
+  .tier-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+
+  .tier-card {
+    background: var(--white);
+    border-radius: 8px;
+    padding: 2.5rem 2.2rem;
+    border: 1px solid rgba(26,58,42,0.08);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+
+  .tier-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 30px rgba(14,34,24,0.06);
+  }
+
+  .tier-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 5px;
+  }
+
+  .tier-a::before { background: var(--ochre); }
+  .tier-b::before { background: var(--forest-mid); }
+  .tier-supply::before { background: var(--rust); }
+  .tier-tech::before { background: var(--sage); }
+
+  .tier-top-meta {
+    margin-bottom: 1.5rem;
+  }
+
+  .tier-badge {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.75rem;
+    border-radius: 4px;
+    margin-bottom: 1.2rem;
+  }
+
+  .badge-a { background: rgba(212,160,23,0.1); color: #B38408; }
+  .badge-b { background: rgba(43,92,64,0.08); color: var(--forest-mid); }
+  .badge-supply { background: rgba(193,90,46,0.08); color: var(--rust); }
+  .badge-tech { background: rgba(143,175,138,0.18); color: #3D5C38; }
+
+  .tier-card h3 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--forest-dark);
+    margin-bottom: 0.8rem;
+  }
+
+  .tier-card p {
+    font-size: 0.92rem;
+    color: var(--text-mid);
+    line-height: 1.6;
+  }
+
+  .tier-feature-list {
+    list-style: none;
+    margin-top: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    border-top: 1px solid rgba(0,0,0,0.05);
+    padding-top: 1.5rem;
+  }
+
+  .tier-feature-list li {
+    font-size: 0.88rem;
+    color: var(--text-dark);
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    font-weight: 500;
+  }
+
+  .tier-feature-list li::before {
+    content: '→';
+    color: var(--rust);
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  /* ── BUSINESS INTEGRATION (API/TOC) ── */
+  #impact {
+    background: var(--forest-dark);
+    color: var(--white);
+  }
+
+  #impact .section-title { color: var(--white); }
+  #impact .section-sub { color: rgba(255,255,255,0.6); }
+
+  .toc-pathways {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: 4.5rem;
+  }
+
+  .pathway {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 8px;
+    padding: 2.5rem 2.2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .pathway-icon {
+    font-size: 2rem;
+    margin-bottom: 1.2rem;
+    display: block;
+  }
+
+  .pathway h3 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.01em;
+  }
+
+  .pathway-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 1.2rem;
+    font-weight: 700;
+  }
+
+  .pathway p {
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+  }
+
+  .pathway-step {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    background: rgba(0,0,0,0.2);
+    padding: 1rem;
+    border-radius: 6px;
+  }
+
+  .step-pill {
+    font-size: 0.78rem;
+    padding: 0.4rem 0.8rem;
+    border-radius: 4px;
+    font-weight: 600;
+    line-height: 1.3;
+  }
+
+  .step-if { background: rgba(212,160,23,0.12); color: var(--ochre-light); }
+  .step-then { background: rgba(143,175,138,0.12); color: var(--sage); }
+  .step-leads { background: rgba(255,255,255,0.05); color: rgba(255,255,255,0.7); border-left: 2px solid var(--rust-light); }
+
+  /* ── NUMBERS & BUSINESS ROI ── */
+  #numbers {
+    background: var(--cream-dark);
+  }
+
+  .numbers-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    background: var(--white);
+    margin-top: 3.5rem;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+  }
+
+  .number-cell {
+    padding: 3rem 2rem;
+    border-right: 1px solid var(--border);
+    text-align: center;
+  }
+
+  .number-cell:last-child { border-right: none; }
+
+  .number-val {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 3.5rem;
+    font-weight: 800;
+    color: var(--forest-dark);
+    line-height: 1;
+    display: block;
+  }
+
+  .number-val .unit {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--rust);
+    vertical-align: super;
+  }
+
+  .number-label {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-top: 0.6rem;
+    line-height: 1.4;
+    font-weight: 500;
+  }
+
+  /* Cost comparison */
+  .cost-table {
+    margin-top: 3.5rem;
+    background: var(--white);
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.02);
+  }
+
+  .cost-table-header {
+    display: grid;
+    grid-template-columns: 2fr 1fr 2fr;
+    background: var(--forest-dark);
+    padding: 1.2rem 2rem;
+    gap: 1rem;
+  }
+
+  .cost-table-header span {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.6);
+  }
+
+  .cost-row {
+    display: grid;
+    grid-template-columns: 2fr 1fr 2fr;
+    padding: 1.5rem 2rem;
+    gap: 1rem;
+    border-bottom: 1px solid var(--border);
+    align-items: center;
+  }
+
+  .cost-row:last-child { border-bottom: none; }
+  .cost-row.highlight { background: rgba(212,160,23,0.05); border-left: 4px solid var(--ochre); }
+
+  .cost-row .intervention {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--forest-dark);
+  }
+
+  .cost-row .cost-badge {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--text-dark);
+  }
+
+  .cost-row.highlight .cost-badge { color: var(--forest-mid); }
+
+  .cost-row .cost-note {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    line-height: 1.4;
+  }
+
+  /* ── ROADMAP ── */
+  #roadmap {
+    background: var(--cream);
+  }
+
+  .phases {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    margin-top: 4.5rem;
+    border: 1px solid var(--border);
+  }
+
+  .phase {
+    background: var(--white);
+    padding: 3rem 2.2rem;
+  }
+
+  .phase-num {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--rust);
+    margin-bottom: 0.6rem;
+  }
+
+  .phase-period {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: var(--forest-dark);
+    line-height: 1.1;
+    margin-bottom: 1rem;
+  }
+
+  .phase-target {
+    font-size: 0.85rem;
+    color: var(--text-dark);
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    background: var(--cream);
+    padding: 0.4rem 0.8rem;
+    border-radius: 4px;
+    display: inline-block;
+  }
+
+  .phase ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+  }
+
+  .phase ul li {
+    font-size: 0.88rem;
+    color: var(--text-mid);
+    padding-left: 1.2rem;
+    position: relative;
+    line-height: 1.4;
+  }
+
+  .phase ul li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--forest-mid);
+    font-weight: 700;
+  }
+
+  /* ── ENTERPRISE CLIENTS / TRADITIONAL PARTNERS ── */
+  #partners {
+    background: var(--forest-dark);
+    text-align: center;
+    padding: 6rem 5%;
+    border-top: 1px solid rgba(255,255,255,0.05);
+  }
+
+  #partners .section-title { color: var(--white); }
+
+  .partner-grid {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 3.5rem;
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .partner-pill {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 6px;
+    padding: 1rem 2rem;
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: rgba(255,255,255,0.7);
+    letter-spacing: 0.02em;
+    transition: background 0.2s;
+  }
+
+  .partner-pill:hover {
+    background: rgba(255,255,255,0.08);
+  }
+
+  .partner-pill strong {
+    color: var(--white);
+    font-weight: 600;
+  }
+
+  /* ── CTA ── */
+  #cta {
+    background: var(--ochre);
+    padding: 8rem 5%;
+    text-align: center;
+    position: relative;
+  }
+
+  #cta .section-title { color: var(--forest-dark); font-size: clamp(2.8rem, 5vw, 4.2rem); }
+  #cta .section-sub { color: rgba(14,34,24,0.75); margin: 0 auto 3rem; text-align: center; max-width: 650px; font-weight: 500; }
+
+  .cta-btn-dark {
+    display: inline-block;
+    background: var(--forest-dark);
+    color: var(--white);
+    font-weight: 700;
+    font-size: 1rem;
+    padding: 1.1rem 3rem;
+    border-radius: 4px;
+    text-decoration: none;
+    letter-spacing: 0.02em;
+    transition: background 0.2s, transform 0.2s;
+    box-shadow: 0 10px 24px rgba(14,34,24,0.15);
+  }
+
+  .cta-btn-dark:hover { background: var(--forest-mid); transform: translateY(-2px); }
+
+  .cta-detail {
+    font-size: 0.85rem;
+    color: rgba(14,34,24,0.5);
+    margin-top: 1.5rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--forest-dark);
+    padding: 4rem 5% 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 2rem;
+    border-top: 1px solid rgba(255,255,255,0.05);
+  }
+
+  .footer-logo {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: var(--ochre);
+  }
+
+  .footer-logo span { color: rgba(255,255,255,0.4); }
+
+  .footer-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .footer-links a {
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: rgba(255,255,255,0.5);
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover { color: var(--white); }
+
+  .footer-copy {
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.3);
+    width: 100%;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  /* ── MISC ── */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: start;
+  }
+
+  .mt-4 { margin-top: 1rem; }
+  .mt-8 { margin-top: 2rem; }
+
+  /* Scroll animation */
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* ── HAMBURGER ── */
+  .nav-hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 6px;
+  }
+  .nav-hamburger span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: rgba(255,255,255,0.8);
+    border-radius: 2px;
+    transition: all 0.3s;
+  }
+
+  /* ── APP PAGE ── */
+  #app-page {
+    background: var(--forest-dark);
+    padding: 8rem 5% 7rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  #app-page::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      radial-gradient(circle at 80% 20%, rgba(212,160,23,0.08) 0%, transparent 50%),
+      radial-gradient(circle at 10% 80%, rgba(143,175,138,0.06) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  .app-page-inner {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    gap: 6rem;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  #app-page .section-title { color: var(--white); }
+  #app-page .section-sub { color: rgba(255,255,255,0.65); }
+  #app-page .section-eyebrow { color: var(--ochre); }
+
+  .app-features-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.6rem;
+    margin-top: 3rem;
+  }
+
+  .app-feature {
+    display: flex;
+    gap: 1.2rem;
+    align-items: flex-start;
+    padding: 1.5rem;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 8px;
+    transition: border-color 0.3s, background 0.3s;
+  }
+
+  .app-feature:hover {
+    border-color: rgba(212,160,23,0.3);
+    background: rgba(255,255,255,0.05);
+  }
+
+  .app-feature-icon {
+    width: 46px;
+    height: 46px;
+    flex-shrink: 0;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+  }
+
+  .app-feature-text h4 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 0.3rem;
+  }
+
+  .app-feature-text p {
+    font-size: 0.88rem;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.5;
+  }
+
+  .app-mockup {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .phone-frame {
+    width: 280px;
+    background: #0a1a12;
+    border-radius: 36px;
+    border: 8px solid #1c3a28;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.05);
+    overflow: hidden;
+    position: relative;
+  }
+
+  .phone-notch {
+    width: 90px;
+    height: 22px;
+    background: #0a1a12;
+    border-radius: 0 0 14px 14px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+  }
+
+  .phone-screen {
+    padding: 1rem 1.2rem 2rem;
+    background: linear-gradient(180deg, #0f2a1c 0%, #0a1a12 100%);
+  }
+
+  .phone-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.4rem;
+  }
+
+  .phone-app-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: var(--ochre);
+    letter-spacing: 0.05em;
+  }
+
+  .phone-avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: var(--forest-mid);
+    border: 2px solid rgba(143,175,138,0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    color: var(--sage);
+    font-weight: 700;
+  }
+
+  .phone-balance-card {
+    background: linear-gradient(135deg, var(--forest-mid), var(--forest-dark));
+    border-radius: 14px;
+    padding: 1.2rem;
+    border: 1px solid rgba(255,255,255,0.08);
+    margin-bottom: 1rem;
+  }
+
+  .phone-balance-label {
+    font-size: 0.65rem;
+    color: rgba(255,255,255,0.5);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.3rem;
+  }
+
+  .phone-balance-amount {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.9rem;
+    font-weight: 800;
+    color: var(--white);
+    letter-spacing: -0.01em;
+  }
+
+  .phone-balance-sub {
+    font-size: 0.65rem;
+    color: var(--ochre);
+    margin-top: 0.4rem;
+    font-weight: 600;
+  }
+
+  .phone-quick-actions {
+    display: flex;
+    gap: 0.6rem;
+    margin-bottom: 1rem;
+  }
+
+  .phone-action-btn {
+    flex: 1;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 10px;
+    padding: 0.6rem 0.3rem;
+    text-align: center;
+    font-size: 0.65rem;
+    color: rgba(255,255,255,0.7);
+    font-weight: 600;
+  }
+
+  .phone-action-btn span {
+    display: block;
+    font-size: 1rem;
+    margin-bottom: 0.2rem;
+  }
+
+  .phone-section-title {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    margin-bottom: 0.7rem;
+  }
+
+  .phone-transaction {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.65rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+
+  .phone-transaction:last-child { border-bottom: none; }
+
+  .phone-tx-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    flex-shrink: 0;
+  }
+
+  .phone-tx-info { flex: 1; }
+
+  .phone-tx-name {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--white);
+    line-height: 1.2;
+  }
+
+  .phone-tx-date {
+    font-size: 0.6rem;
+    color: rgba(255,255,255,0.35);
+  }
+
+  .phone-tx-amount {
+    font-size: 0.75rem;
+    font-weight: 700;
+    font-family: 'Barlow Condensed', sans-serif;
+  }
+
+  .tx-green { color: #5CCB72; }
+  .tx-red { color: var(--rust-light); }
+
+  .app-store-btns {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2.5rem;
+    flex-wrap: wrap;
+  }
+
+  .store-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 8px;
+    padding: 0.8rem 1.4rem;
+    text-decoration: none;
+    color: var(--white);
+    transition: background 0.2s, border-color 0.2s;
+  }
+
+  .store-btn:hover { background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.3); }
+
+  .store-btn-icon { font-size: 1.4rem; }
+
+  .store-btn-text { font-size: 0.75rem; color: rgba(255,255,255,0.6); }
+  .store-btn-text strong { display: block; font-size: 0.92rem; color: var(--white); font-weight: 600; }
+
+  /* ── ALL FEATURES GRID ── */
+  .all-features-section {
+    background: var(--cream);
+    padding: 7rem 5%;
+  }
+
+  .features-full-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 4rem;
+  }
+
+  .feature-full-card {
+    background: var(--white);
+    border-radius: 10px;
+    padding: 2.2rem;
+    border: 1px solid rgba(26,58,42,0.07);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .feature-full-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(14,34,24,0.07);
+  }
+
+  .feature-full-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.6rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .feature-full-card h4 {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--forest-dark);
+    margin-bottom: 0.5rem;
+  }
+
+  .feature-full-card p {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    line-height: 1.55;
+  }
+
+  /* ── CAREERS PAGE ── */
+  #careers {
+    background: var(--white);
+    padding: 8rem 5% 7rem;
+  }
+
+  .careers-hero {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 5rem;
+    align-items: center;
+    margin-bottom: 6rem;
+  }
+
+  .careers-values {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.2rem;
+    margin-top: 3rem;
+  }
+
+  .careers-value {
+    padding: 1.4rem;
+    background: var(--cream);
+    border-radius: 8px;
+    border-left: 4px solid var(--ochre);
+  }
+
+  .careers-value h4 {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--forest-dark);
+    margin-bottom: 0.3rem;
+  }
+
+  .careers-value p {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+
+  .careers-culture-box {
+    background: var(--forest-dark);
+    border-radius: 12px;
+    padding: 3rem 2.5rem;
+    color: var(--white);
+  }
+
+  .careers-culture-box h3 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--ochre);
+    margin-bottom: 1.5rem;
+    line-height: 1.1;
+  }
+
+  .culture-stat {
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .culture-stat:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+
+  .culture-stat-num {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: var(--white);
+    line-height: 1;
+  }
+
+  .culture-stat-num span { color: var(--ochre); }
+
+  .culture-stat p {
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.55);
+    margin-top: 0.3rem;
+    line-height: 1.4;
+  }
+
+  /* Job listings */
+  .jobs-section-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: var(--forest-dark);
+    margin-bottom: 0.5rem;
+  }
+
+  .jobs-section-sub {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .job-filters {
+    display: flex;
+    gap: 0.6rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .job-filter-btn {
+    padding: 0.45rem 1.1rem;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    background: transparent;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .job-filter-btn.active, .job-filter-btn:hover {
+    background: var(--forest-dark);
+    color: var(--white);
+    border-color: var(--forest-dark);
+  }
+
+  .jobs-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    background: var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+
+  .job-item {
+    background: var(--white);
+    padding: 1.8rem 2rem;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 1.5rem;
+    align-items: center;
+    transition: background 0.2s;
+  }
+
+  .job-item:hover { background: var(--cream); }
+
+  .job-item-left { display: flex; flex-direction: column; gap: 0.5rem; }
+
+  .job-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--forest-dark);
+  }
+
+  .job-tags { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+
+  .job-tag {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.2rem 0.65rem;
+    border-radius: 4px;
+  }
+
+  .tag-dept { background: rgba(43,92,64,0.1); color: var(--forest-mid); }
+  .tag-loc { background: rgba(212,160,23,0.1); color: #9a7510; }
+  .tag-type { background: rgba(193,90,46,0.1); color: var(--rust); }
+
+  .job-apply-btn {
+    display: inline-block;
+    padding: 0.65rem 1.5rem;
+    border-radius: 4px;
+    background: var(--forest-dark);
+    color: var(--white);
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background 0.2s, transform 0.2s;
+  }
+
+  .job-apply-btn:hover { background: var(--forest-mid); transform: translateY(-1px); }
+
+  .careers-cta {
+    margin-top: 3.5rem;
+    background: var(--cream);
+    border-radius: 12px;
+    padding: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    flex-wrap: wrap;
+    border: 1px solid var(--border);
+  }
+
+  .careers-cta h4 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--forest-dark);
+    margin-bottom: 0.4rem;
+  }
+
+  .careers-cta p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    max-width: 480px;
+  }
+
+  /* ── DONATE PAGE ── */
+  #donate {
+    background: var(--cream-dark);
+    padding: 8rem 5% 7rem;
+  }
+
+  .donate-hero {
+    text-align: center;
+    max-width: 680px;
+    margin: 0 auto 5rem;
+  }
+
+  .donate-hero .section-eyebrow { color: var(--rust); }
+
+  .donate-impact-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 5rem;
+  }
+
+  .donate-impact-card {
+    background: var(--white);
+    border-radius: 10px;
+    padding: 2.5rem 2rem;
+    text-align: center;
+    border: 1px solid rgba(26,58,42,0.07);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .donate-impact-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(14,34,24,0.06);
+  }
+
+  .donate-impact-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    display: block;
+  }
+
+  .donate-impact-amount {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 2.8rem;
+    font-weight: 800;
+    color: var(--forest-dark);
+    display: block;
+    line-height: 1;
+    margin-bottom: 0.3rem;
+  }
+
+  .donate-impact-label {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--forest-dark);
+    margin-bottom: 0.5rem;
+  }
+
+  .donate-impact-desc {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+
+  /* Donate widget */
+  .donate-widget-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .donate-widget {
+    background: var(--white);
+    border-radius: 14px;
+    padding: 3rem;
+    border: 1px solid var(--border);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.04);
+  }
+
+  .donate-widget h3 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--forest-dark);
+    margin-bottom: 0.4rem;
+  }
+
+  .donate-widget-sub {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    margin-bottom: 2rem;
+    line-height: 1.5;
+  }
+
+  .donate-amounts {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.7rem;
+    margin-bottom: 1rem;
+  }
+
+  .donate-amount-btn {
+    padding: 0.85rem 0.5rem;
+    border-radius: 8px;
+    border: 2px solid var(--border);
+    background: transparent;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--forest-dark);
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+  }
+
+  .donate-amount-btn:hover, .donate-amount-btn.active {
+    border-color: var(--forest-dark);
+    background: var(--forest-dark);
+    color: var(--white);
+  }
+
+  .donate-amount-btn small {
+    display: block;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.6rem;
+    font-weight: 500;
+    opacity: 0.7;
+    margin-top: 0.2rem;
+  }
+
+  .donate-custom-input {
+    width: 100%;
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    padding: 0.85rem 1rem;
+    font-size: 1rem;
+    font-family: 'Inter', sans-serif;
+    color: var(--forest-dark);
+    background: var(--cream);
+    margin-bottom: 1rem;
+    transition: border-color 0.2s;
+    outline: none;
+  }
+
+  .donate-custom-input:focus { border-color: var(--forest-mid); }
+
+  .donate-frequency {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .donate-freq-btn {
+    flex: 1;
+    padding: 0.6rem;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    background: transparent;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+  }
+
+  .donate-freq-btn.active, .donate-freq-btn:hover {
+    background: var(--ochre);
+    color: var(--forest-dark);
+    border-color: var(--ochre);
+  }
+
+  .donate-submit-btn {
+    width: 100%;
+    padding: 1.1rem;
+    border-radius: 8px;
+    border: none;
+    background: var(--ochre);
+    color: var(--forest-dark);
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+    letter-spacing: 0.02em;
+  }
+
+  .donate-submit-btn:hover { background: var(--ochre-light); transform: translateY(-2px); }
+
+  .donate-trust {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    font-size: 0.78rem;
+    color: var(--text-muted);
+  }
+
+  .donate-story {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .donate-story-quote {
+    background: var(--forest-dark);
+    border-radius: 12px;
+    padding: 2.5rem;
+    position: relative;
+  }
+
+  .donate-story-quote::before {
+    content: '"';
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 5rem;
+    font-weight: 800;
+    color: var(--ochre);
+    opacity: 0.3;
+    position: absolute;
+    top: 0.5rem;
+    left: 1.5rem;
+    line-height: 1;
+  }
+
+  .donate-story-quote p {
+    font-size: 1.05rem;
+    color: rgba(255,255,255,0.85);
+    line-height: 1.65;
+    font-style: italic;
+    position: relative;
+    z-index: 1;
+    margin-bottom: 1.2rem;
+  }
+
+  .donate-story-attr {
+    font-size: 0.82rem;
+    color: var(--ochre);
+    font-weight: 600;
+  }
+
+  .donate-progress {
+    background: var(--white);
+    border-radius: 10px;
+    padding: 2rem;
+    border: 1px solid var(--border);
+  }
+
+  .donate-progress h4 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--forest-dark);
+    margin-bottom: 1.2rem;
+  }
+
+  .progress-bar-wrap {
+    background: var(--cream-dark);
+    border-radius: 100px;
+    height: 10px;
+    overflow: hidden;
+    margin-bottom: 0.6rem;
+  }
+
+  .progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--forest-mid), var(--ochre));
+    border-radius: 100px;
+    width: 62%;
+    transition: width 1.5s ease;
+  }
+
+  .progress-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+  }
+
+  .progress-labels strong { color: var(--forest-dark); }
+
+  /* ── CONTACT PAGE ── */
+  #contact {
+    background: var(--white);
+    padding: 8rem 5% 7rem;
+  }
+
+  .contact-inner {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 6rem;
+    align-items: start;
+  }
+
+  #contact .section-eyebrow { color: var(--rust); }
+
+  .contact-info-blocks {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-top: 3rem;
+  }
+
+  .contact-info-block {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+
+  .contact-info-icon {
+    width: 46px;
+    height: 46px;
+    border-radius: 10px;
+    background: var(--cream);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    flex-shrink: 0;
+  }
+
+  .contact-info-block h4 {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--forest-dark);
+    margin-bottom: 0.3rem;
+  }
+
+  .contact-info-block p, .contact-info-block a {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .contact-info-block a:hover { color: var(--forest-dark); }
+
+  .contact-socials {
+    display: flex;
+    gap: 0.8rem;
+    margin-top: 3rem;
+  }
+
+  .contact-social-btn {
+    width: 42px;
+    height: 42px;
+    border-radius: 8px;
+    background: var(--cream);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .contact-social-btn:hover {
+    background: var(--forest-dark);
+    border-color: var(--forest-dark);
+    transform: translateY(-2px);
+  }
+
+  /* Contact form */
+  .contact-form-box {
+    background: var(--cream);
+    border-radius: 14px;
+    padding: 3rem;
+    border: 1px solid var(--border);
+  }
+
+  .contact-form-box h3 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--forest-dark);
+    margin-bottom: 0.4rem;
+  }
+
+  .contact-form-sub {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    margin-bottom: 2rem;
+    line-height: 1.5;
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    margin-bottom: 1rem;
+  }
+
+  .form-group label {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--forest-dark);
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    padding: 0.85rem 1rem;
+    border-radius: 8px;
+    border: 1.5px solid var(--border);
+    background: var(--white);
+    font-size: 0.92rem;
+    font-family: 'Inter', sans-serif;
+    color: var(--forest-dark);
+    transition: border-color 0.2s;
+    outline: none;
+    width: 100%;
+  }
+
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    border-color: var(--forest-mid);
+  }
+
+  .form-group textarea {
+    resize: vertical;
+    min-height: 110px;
+  }
+
+  .form-submit-btn {
+    width: 100%;
+    padding: 1.1rem;
+    border-radius: 8px;
+    border: none;
+    background: var(--forest-dark);
+    color: var(--white);
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+    letter-spacing: 0.02em;
+  }
+
+  .form-submit-btn:hover { background: var(--forest-mid); transform: translateY(-2px); }
+
+  .form-success {
+    display: none;
+    text-align: center;
+    padding: 2rem;
+  }
+
+  .form-success-icon { font-size: 3rem; margin-bottom: 1rem; }
+
+  .form-success h4 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: var(--forest-dark);
+    margin-bottom: 0.5rem;
+  }
+
+  .form-success p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+  }
+
+  /* ── UPDATED RESPONSIVE ── */
+  @media (max-width: 992px) {
+    #hero { grid-template-columns: 1fr; padding-top: 120px; }
+    .hero-right { display: none; }
+    .problem-grid, .solution-header, .toc-pathways, .phases, .two-col { grid-template-columns: 1fr; gap: 3rem; }
+    .numbers-grid { grid-template-columns: 1fr 1fr; }
+    .tier-grid { grid-template-columns: 1fr; }
+    nav ul { display: none; }
+    nav ul.open { 
+      display: flex; flex-direction: column; 
+      position: absolute; top: 70px; left: 0; right: 0;
+      background: var(--forest-dark);
+      padding: 1.5rem 5%;
+      gap: 0.8rem;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      z-index: 99;
+    }
+    .nav-hamburger { display: flex; }
+    .app-page-inner, .careers-hero, .contact-inner, .donate-widget-wrapper { grid-template-columns: 1fr; gap: 3rem; }
+    .features-full-grid { grid-template-columns: 1fr 1fr; }
+    .donate-impact-grid { grid-template-columns: 1fr; }
+    .donate-amounts { grid-template-columns: repeat(3, 1fr); }
+    .form-row { grid-template-columns: 1fr; }
+    .careers-values { grid-template-columns: 1fr; }
+    .phone-frame { width: 240px; }
+    .app-mockup { padding: 2rem 0; }
+  }
+
+  @media (max-width: 600px) {
+    .features-full-grid { grid-template-columns: 1fr; }
+    .donate-amounts { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">WE<span>FEED</span></a>
+  <button class="nav-hamburger" id="navHamburger" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
+  <ul id="navMenu">
+    <li><a href="#problem">Challenge</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#solution">Solutions</a></li>
+    <li><a href="#app-page">The App</a></li>
+    <li><a href="#careers">Careers</a></li>
+    <li><a href="#donate">Donate</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#cta" class="nav-cta">Book a Demo</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg-pattern"></div>
+
+  <div class="hero-left reveal">
+    <div class="hero-eyebrow">Enterprise InsurTech & Infrastructure</div>
+    <h1 class="hero-headline">
+      Food Asset<br>
+      Protection As<br>
+      A <span class="accent">Digital Solution</span>.
+    </h1>
+    <p class="hero-sub">
+      WeFeed powers modular micro-insurance, enterprise meal benefits, and AI-driven cold chain logistics frameworks to de-risk workforce nutritional delivery across emerging markets.
+    </p>
+    <div class="btn-group">
+      <a href="#solution" class="btn-primary">Explore Platform Suite</a>
+      <a href="#cta" class="btn-outline">View API Docs</a>
+    </div>
+
+    <div class="hero-stats">
+      <div>
+        <div class="hero-stat-num">35<span>%</span></div>
+        <div class="hero-stat-label">Average Supply Chain Compressing</div>
+      </div>
+      <div>
+        <div class="hero-stat-num">99.9<span>%</span></div>
+        <div class="hero-stat-label">Platform Core API Uptime</div>
+      </div>
+      <div>
+        <div class="hero-stat-num">10<span>K+</span></div>
+        <div class="hero-stat-label">Active Nodes Connected</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-right reveal">
+    <div class="chain-visual">
+      <div class="chain-visual-title">WeFeed Integrated Technology Layer</div>
+      <div class="chain-step">
+        <div class="chain-icon" style="background:rgba(212,160,23,0.15);">🌾</div>
+        <div class="chain-step-text">
+          <h4>Sourcing & Smart Contracts</h4>
+          <p>Algorithmic off-take execution and dynamic agronomic data integration.</p>
+        </div>
+      </div>
+      <div class="chain-arrow">↓</div>
+      <div class="chain-step">
+        <div class="chain-icon" style="background:rgba(143,175,138,0.15);">🚚</div>
+        <div class="chain-step-text">
+          <h4>IoT Cold-Chain Telematics</h4>
+          <p>Real-time thermal monitoring and smart vehicle route optimization.</p>
+        </div>
+      </div>
+      <div class="chain-arrow">↓</div>
+      <div class="chain-step">
+        <div class="chain-icon" style="background:rgba(193,90,46,0.15);">🏪</div>
+        <div class="chain-step-text">
+          <h4>Predictive Demand Analytics</h4>
+          <p>Automated cloud inventory balancing across fulfillment nodes.</p>
+        </div>
+      </div>
+      <div class="chain-arrow">↓</div>
+      <div class="chain-step">
+        <div class="chain-icon" style="background:rgba(255,255,255,0.08);">📱</div>
+        <div class="chain-step-text">
+          <h4>Omnichannel End-User API</h4>
+          <p>High-availability validation engine via native App, USSD, and NFC.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section id="problem">
+  <div class="problem-grid">
+    <div class="reveal">
+      <span class="section-eyebrow">The Corporate & Market Challenge</span>
+      <h2 class="section-title">Solving food system fragmentation with code.</h2>
+      <p class="section-sub">Unpredictable retail inflation, broken cold storage operations, and the total absence of structural workforce protections dramatically increase overhead costs for enterprises and gig economies alike.</p>
+
+      <div class="problem-cards">
+        <div class="problem-card reveal">
+          <h4>Supply Chain Disintermediation Gaps</h4>
+          <p>Up to 50% of asset value is depleted due to inadequate transport synchronization. WeFeed replaces multiple informal broker layers with data-driven routing protocols.</p>
+        </div>
+        <div class="problem-card reveal">
+          <h4>Workforce Volatility Risks</h4>
+          <p>Over 80% of independent contractors operate without structured safety nets. Temporary income disruption translates instantly into decreased regional productivity and high churn.</p>
+        </div>
+        <div class="problem-card reveal">
+          <h4>Price Exploitation Overhead</h4>
+          <p>Opaque pricing variables from traditional open-market layers artificially inflate end-tier procurement prices by 15% to 25%, directly shifting operational strain onto businesses.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="problem-stat-block reveal">
+      <span class="big-stat">1–2</span>
+      <p class="big-stat-label">Direct distribution layers managed by the WeFeed platform, down from the typical 6 fragmented broker tiers.</p>
+
+      <hr class="stat-divider">
+
+      <span class="big-stat">60%</span>
+      <p class="big-stat-label">Reduction in localized product transit spoilage achieved through cloud-tracked temperature parameters.</p>
+
+      <hr class="stat-divider">
+
+      <span class="big-stat" style="color:var(--rust-light);">&lt;15ms</span>
+      <p class="big-stat-label">End-to-end API latency for verification transactions at enterprise merchant hubs.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT US -->
+<section id="about">
+  <div class="two-col grid-3">
+    <div class="reveal">
+      <span class="section-eyebrow">Our Structural DNA</span>
+      <h2 class="section-title">Re-architecting systemic security from the ground up.</h2>
+      <p class="section-sub" style="margin-bottom: 1.5rem;">WeFeed was founded on a singular engineering principle: that systemic challenges like food insecurity and supply-chain volatility in emerging markets are fundamentally information and infrastructure failures, not resource deficits.</p>
+      <p class="section-sub">By building automated algorithmic safety nets, low-latency mobile pipelines, and high-precision telemetry, we strip out transactional friction to protect both the original asset creators and end-tier workforce consumers.</p>
+    </div>
+    
+    <div class="about-visual reveal">
+      <h3>OUR GUIDING PROTOCOLS</h3>
+      <div class="protocol-block">
+        <h4>01 / Radical Decoupling</h4>
+        <p>Separating essential daily sustenance costs from macroeconomic inflation surges and localized micro-shocks.</p>
+      </div>
+      <div class="protocol-block">
+        <h4>02 / Programmatic Integrity</h4>
+        <p>Replacing manual, slow-moving administrative insurance layers with high-availability, instant-execution smart code rules.</p>
+      </div>
+      <div class="protocol-block">
+        <h4>03 / Zero-Friction Delivery</h4>
+        <p>Ensuring mission-critical data payloads move flawlessly over both high-speed fiber lines and basic feature-phone networks.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUTION (PRODUCTS) -->
+<section id="solution">
+  <div class="solution-header">
+    <div class="reveal">
+      <span class="section-eyebrow">The Enterprise Solution Suite</span>
+      <h2 class="section-title">Unified technology.<br><span class="accent-green">De-risked execution.</span></h2>
+    </div>
+    <div class="reveal">
+      <p class="section-sub">Weeed coordinates core transactional engines, algorithmic risk pooling, and physical infrastructure coordination into a unified enterprise platform framework.</p>
+    </div>
+  </div>
+
+  <div class="tier-grid">
+    <div class="tier-card tier-a reveal">
+      <div class="tier-top-meta">
+        <span class="tier-badge badge-a">InsurTech Module</span>
+        <h3>WeFeed Protect™ API</h3>
+        <p>A dynamic, high-volume programmatic micro-premium engine. Allows gig-economy networks, platforms, and corporate clients to automate algorithmic risk pooling and asset distributions for independent contractors.</p>
+      </div>
+      <ul class="tier-feature-list">
+        <li>Automated micro-premium calculations via API</li>
+        <li>Instant settlement processing engines</li>
+        <li>USSD, App, and National ID verification integrations</li>
+        <li>Configurable asset/meal parcel trigger thresholds</li>
+      </ul>
+    </div>
+
+    <div class="tier-card tier-b reveal">
+      <div class="tier-top-meta">
+        <span class="tier-badge badge-b">Corporate Benefit Suite</span>
+        <h3>WeFeed Enterprise Subscriptions</h3>
+        <p>Centralized, scalable, cloud-managed nutritional employee benefit programs. Bypasses inflationary open-market consumer costs to deliver highly structured, direct-from-source bulk allocations for corporate workspaces.</p>
+      </div>
+      <ul class="tier-feature-list">
+        <li>Predictable fixed-cost subscription cycles</li>
+        <li>Customized operational meal provisioning profiles</li>
+        <li>Real-time dashboard reports for management</li>
+        <li>Integrated ESG metric and impact logging tools</li>
+      </ul>
+    </div>
+
+    <div class="tier-card tier-supply reveal">
+      <div class="tier-top-meta">
+        <span class="tier-badge badge-supply">Logistics Automation</span>
+        <h3>Cold-Chain Asset Management</h3>
+        <p>A comprehensive operations matrix connecting production cooperatives straight to smart metropolitan distribution nodes. Monitored continuously via telematics tracking software.</p>
+      </div>
+      <ul class="tier-feature-list">
+        <li>Predictive transport and vehicle dispatch modeling</li>
+        <li>Continuous real-time temperature log recording</li>
+        <li>Direct integration with agricultural ERP platforms</li>
+        <li>Verified fulfillment security marks</li>
+      </ul>
+    </div>
+
+    <div class="tier-card tier-tech reveal">
+      <div class="tier-top-meta">
+        <span class="tier-badge badge-tech">Core Infrastructure</span>
+        <h3>Inclusive Omnichannel Stack</h3>
+        <p>Ensures absolute accessibility across variable network conditions. Includes high-capacity data-free USSD configurations, hardware validation readers, and predictive optimization analytics.</p>
+      </div>
+      <ul class="tier-feature-list">
+        <li>Offline-resilient transaction capabilities</li>
+        <li>Multi-dialect automated localized alert systems</li>
+        <li>Merchant network demand balancing software</li>
+        <li>Fully tokenized user credential architecture</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ARCHITECTURE / VALUE PATHWAYS -->
+<section id="impact">
+  <div class="section-header-center">
+    <span class="section-eyebrow" style="color:var(--sage);">Platform Architecture</span>
+    <h2 class="section-title">Synchronized infrastructure components.</h2>
+    <p class="section-sub">Our systems combine explicit financial technology, real-time logistics optimization data, and production resilience features to establish an optimized, continuous transactional flow.</p>
+  </div>
+
+  <div class="toc-pathways">
+    <div class="pathway reveal">
+      <span class="pathway-icon">📊</span>
+      <div class="pathway-label" style="color:var(--ochre);">Financial Layer</div>
+      <h3>Risk Resiliency & Pooling</h3>
+      <p>Processes real-time multi-tenant payments to insulate corporate clients, user bases, and fulfillment lines from unexpected market spikes.</p>
+      <div class="pathway-step">
+        <span class="step-pill step-if">IF: Enterprise systems trigger automated micro-contributions</span>
+        <span class="step-pill step-then">THEN: Dynamic risk parameters balance resource pools</span>
+        <span class="step-pill step-leads">→ Ensuring continuous system liquidity and zero disruption</span>
+      </div>
+    </div>
+
+    <div class="pathway reveal">
+      <span class="pathway-icon">🚚</span>
+      <div class="pathway-label" style="color:var(--sage);">Logistics Routing Engine</div>
+      <h3>Supply Chain Optimization</h3>
+      <p>Compresses transit overhead variables, coordinates regional nodes, and uses predictive analytics to optimize inventory deployment.</p>
+      <div class="pathway-step">
+        <span class="step-pill step-if">IF: Route optimization protocols automate distribution paths</span>
+        <span class="step-pill step-then">THEN: Operational transit times and asset decay drops</span>
+        <span class="step-pill step-leads">→ Compressing client premium overhead while increasing network margin</span>
+      </div>
+    </div>
+
+    <div class="pathway reveal">
+      <span class="pathway-icon">🌾</span>
+      <div class="pathway-label" style="color:var(--rust-light);">Sourcing Layer</div>
+      <h3>Fulfillment Security</h3>
+      <p>Stabilizes bulk supply volumes using predictable, programmatically enforced smart agreements with production cooperatives.</p>
+      <div class="pathway-step">
+        <span class="step-pill step-if">IF: Production points leverage algorithmic supply schedules</span>
+        <span class="step-pill step-then">THEN: Upstream raw asset costs achieve absolute predictability</span>
+        <span class="step-pill step-leads">→ Protecting network endpoints from macro inflationary trends</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NUMBERS & ROI -->
+<section id="numbers">
+  <div class="two-col" style="margin-bottom:3rem;">
+    <div class="reveal">
+      <span class="section-eyebrow">System Metrics & Performance</span>
+      <h2 class="section-title">Measurable cost reduction. Maximized ROI.</h2>
+    </div>
+    <div class="reveal">
+      <p class="section-sub">By modernizing legacy transit practices and utilizing advanced algorithmic risk models, WeFeed lowers overall infrastructure expenses relative to traditional models.</p>
+    </div>
+  </div>
+
+  <div class="numbers-grid reveal">
+    <div class="number-cell">
+      <span class="number-val"><span class="unit">$</span>55–85</span>
+      <div class="number-label">Optimized annual platform cost<br>per scaling network node</div>
+    </div>
+    <div class="number-cell">
+      <span class="number-val">35<span class="unit">%</span></span>
+      <div class="number-label">Average end-tier price compression<br>via supply chain optimization</div>
+    </div>
+    <div class="number-cell">
+      <span class="number-val">60<span class="unit">%</span></span>
+      <div class="number-label">Fulfillment spoilage reduction<br>using IoT thermal route software</div>
+    </div>
+    <div class="number-cell">
+      <span class="number-val">4.8<span class="unit">★</span></span>
+      <div class="number-label">Merchant infrastructure partner<br>integration rating index</div>
+    </div>
+  </div>
+
+  <div class="cost-table reveal">
+    <div class="cost-table-header">
+      <span>Operational Architecture</span>
+      <span>Calculated Per-User Overhead</span>
+      <span>System Resource Efficiencies</span>
+    </div>
+    <div class="cost-row">
+      <div class="intervention">Traditional Open-Market Sourcing</div>
+      <div class="cost-badge">$180–$300</div>
+      <div class="cost-note">Exposed to multi-tier middleman inflation, volatile pricing spikes, and zero telemetry data tracking.</div>
+    </div>
+    <div class="cost-row">
+      <div class="intervention">Standard Corporate Catering Subcontracting</div>
+      <div class="cost-badge">$120-$200</div>
+      <div class="cost-note">Fragmented local logistics, high volume variance penalties, and complex unintegrated manual tracking.</div>
+    </div>
+    <div class="cost-row highlight">
+      <div class="intervention">WeFeed Connected Network Infrastructure</div>
+      <div class="cost-badge" style="color:var(--forest-mid)">$55–$85</div>
+      <div class="cost-note" style="color:var(--forest-mid)">Fully balanced by automated risk-pooling parameters, direct automated tracking networks, and platform consolidation.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ROADMAP -->
+<section id="roadmap">
+  <div class="two-col" style="margin-bottom:0;">
+    <div class="reveal">
+      <span class="section-eyebrow">Enterprise Scaling Strategy</span>
+      <h2 class="section-title">A highly disciplined,<br><span class="accent">three-phase</span> product roadmap.</h2>
+    </div>
+    <div class="reveal">
+      <p class="section-sub">Moving deliberately from foundational production milestones to automated machine learning analytics pipelines across multiple global target markets.</p>
+    </div>
+  </div>
+
+  <div class="phases">
+    <div class="phase reveal">
+      <div class="phase-num">Phase 01</div>
+      <div class="phase-period">Core Engine<br>Deployment</div>
+      <div class="phase-target">Regional Node Validation</div>
+      <ul>
+        <li>Deploy high-availability Core API v1 frameworks</li>
+        <li>Connect primary production cooperatives to digital dashboards</li>
+        <li>Validate actuarial micro-premium distribution engines</li>
+        <li>Publish comprehensive developer API documentation portals</li>
+      </ul>
+    </div>
+    <div class="phase reveal">
+      <div class="phase-num">Phase 02</div>
+      <div class="phase-period">Enterprise ecosystem<br>Expansion</div>
+      <div class="phase-target">Multi-Tenant Network Scaling</div>
+      <ul>
+        <li>Launch customized B2B SaaS dashboard suites</li>
+        <li>Integrate automated cross-wallet payment modules</li>
+        <li>Introduce end-to-end telemetry fleet routing systems</li>
+        <li>Scale programmatic integrations for enterprise platforms</li>
+      </ul>
+    </div>
+    <div class="phase reveal">
+      <div class="phase-num">Phase 03</div>
+      <div class="phase-period">Predictive Intelligence<br>Integration</div>
+      <div class="phase-target">Global Platform Maturity</div>
+      <ul>
+        <li>Activate AI predictive supply/demand balance models</li>
+        <li>Incorporate carbon-offset asset tokenization metrics</li>
+        <li>Open global ecosystem endpoints for seamless cross-border configurations</li>
+        <li>Achieve standalone recurring enterprise software profitability</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- STRATEGIC CORE PARTNERS -->
+<section id="partners">
+  <span class="section-eyebrow" style="color:var(--sage);">Enterprise Integrations & Partners</span>
+  <h2 class="section-title" style="margin-bottom:0.5rem;">Built to align with elite infrastructure standards.</h2>
+
+  <div class="partner-grid">
+    <div class="partner-pill"><strong>Academic Research Foundations</strong> — System Validation Nodes</div>
+    <div class="partner-pill"><strong>GRIDCo</strong> — Automated Charging Network Support Systems</div>
+    <div class="partner-pill"><strong>Volta Sourcing Networks</strong> — Programmatic Production Nodes</div>
+    <div class="partner-pill"><strong>Enterprise Core API Systems</strong> — High-Performance Telemetry Matrices</div>
+    <div class="partner-pill"><strong>Regulatory Oversight Boards</strong> — Stringent SLA Compliance Engines</div>
+    <div class="partner-pill"><strong>Fintech Mobile Operators</strong> — Multi-Wallet Settlement Infrastructure</div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta">
+  <span class="section-eyebrow" style="color:rgba(14,34,24,0.55);">Secure Your Team's Operational Continuity</span>
+  <h2 class="section-title" style="margin-bottom:1rem;">Ready to optimize your company's logistics & benefit suites?</h2>
+  <p class="section-sub">Connect with our systems architects today to configure your custom enterprise package, review detailed API specifications, or initiate an integration test sprint.</p>
+  <a href="mailto:enterprise@wefeed.com.gh" class="cta-btn-dark">Request API Access & Demo</a>
+  <p class="cta-detail">WeFeed Enterprise Architecture Solutions · June 2026</p>
+</section>
+
+<!-- ══ APP PAGE ══ -->
+<section id="app-page">
+  <div class="app-page-inner">
+    <div class="reveal">
+      <span class="section-eyebrow">The WeFeed Mobile App</span>
+      <h2 class="section-title" style="color:var(--white);">Your food security<br>in <span style="color:var(--ochre);">your pocket.</span></h2>
+      <p class="section-sub">The WeFeed app connects employees, contractors, and households directly to their food benefits — offline-capable, USSD-ready, and available on all devices. No smartphone? No problem.</p>
+
+      <div class="app-features-list">
+        <div class="app-feature">
+          <div class="app-feature-icon" style="background:rgba(212,160,23,0.15);">💳</div>
+          <div class="app-feature-text">
+            <h4>Digital Food Wallet</h4>
+            <p>Load, track, and spend your meal benefits at any WeFeed-connected merchant with a tap or USSD code.</p>
+          </div>
+        </div>
+        <div class="app-feature">
+          <div class="app-feature-icon" style="background:rgba(143,175,138,0.15);">📊</div>
+          <div class="app-feature-text">
+            <h4>Real-Time Benefit Tracking</h4>
+            <p>See exactly what you've used, what's available, and when your next allocation drops — in real time.</p>
+          </div>
+        </div>
+        <div class="app-feature">
+          <div class="app-feature-icon" style="background:rgba(193,90,46,0.15);">🛡️</div>
+          <div class="app-feature-text">
+            <h4>Instant Claim Filing</h4>
+            <p>File food insurance claims in under 60 seconds. No forms. No waiting. Payouts processed automatically.</p>
+          </div>
+        </div>
+        <div class="app-feature">
+          <div class="app-feature-icon" style="background:rgba(255,255,255,0.06);">📍</div>
+          <div class="app-feature-text">
+            <h4>Merchant Locator</h4>
+            <p>Find the nearest WeFeed-connected vendors, canteens, and delivery partners wherever you are.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="app-store-btns">
+        <a href="#" class="store-btn">
+          <span class="store-btn-icon">🍎</span>
+          <div class="store-btn-text"><span>Download on the</span><strong>App Store</strong></div>
+        </a>
+        <a href="#" class="store-btn">
+          <span class="store-btn-icon">▶️</span>
+          <div class="store-btn-text"><span>Get it on</span><strong>Google Play</strong></div>
+        </a>
+      </div>
+    </div>
+
+    <div class="app-mockup reveal">
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-screen">
+          <div class="phone-header">
+            <div class="phone-app-name">WEFEED</div>
+            <div class="phone-avatar">AK</div>
+          </div>
+
+          <div class="phone-balance-card">
+            <div class="phone-balance-label">Available Balance</div>
+            <div class="phone-balance-amount">GH₵ 180.00</div>
+            <div class="phone-balance-sub">↑ GH₵ 45 refreshes in 6 days</div>
+          </div>
+
+          <div class="phone-quick-actions">
+            <div class="phone-action-btn"><span>🛒</span>Pay</div>
+            <div class="phone-action-btn"><span>🛡️</span>Claim</div>
+            <div class="phone-action-btn"><span>📍</span>Find</div>
+            <div class="phone-action-btn"><span>📊</span>History</div>
+          </div>
+
+          <div class="phone-section-title">Recent Transactions</div>
+
+          <div class="phone-transaction">
+            <div class="phone-tx-icon" style="background:rgba(143,175,138,0.15);">🍽️</div>
+            <div class="phone-tx-info">
+              <div class="phone-tx-name">Accra Canteen Hub</div>
+              <div class="phone-tx-date">Today, 12:34 PM</div>
+            </div>
+            <div class="phone-tx-amount tx-red">−GH₵ 22.00</div>
+          </div>
+
+          <div class="phone-transaction">
+            <div class="phone-tx-icon" style="background:rgba(212,160,23,0.15);">💼</div>
+            <div class="phone-tx-info">
+              <div class="phone-tx-name">Monthly Benefit Credit</div>
+              <div class="phone-tx-date">Jun 1, 2026</div>
+            </div>
+            <div class="phone-tx-amount tx-green">+GH₵ 180.00</div>
+          </div>
+
+          <div class="phone-transaction">
+            <div class="phone-tx-icon" style="background:rgba(193,90,46,0.15);">🛡️</div>
+            <div class="phone-tx-info">
+              <div class="phone-tx-name">Claim #4412 Approved</div>
+              <div class="phone-tx-date">May 28, 2026</div>
+            </div>
+            <div class="phone-tx-amount tx-green">+GH₵ 35.00</div>
+          </div>
+
+          <div class="phone-transaction">
+            <div class="phone-tx-icon" style="background:rgba(143,175,138,0.15);">🍽️</div>
+            <div class="phone-tx-info">
+              <div class="phone-tx-name">Osu Food Market</div>
+              <div class="phone-tx-date">May 25, 2026</div>
+            </div>
+            <div class="phone-tx-amount tx-red">−GH₵ 13.00</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ALL APP FEATURES GRID -->
+<div class="all-features-section">
+  <div class="section-header-center reveal">
+    <span class="section-eyebrow">Full Feature Set</span>
+    <h2 class="section-title">Everything you need.<br>Nothing you don't.</h2>
+  </div>
+  <div class="features-full-grid">
+    <div class="feature-full-card reveal">
+      <div class="feature-full-icon" style="background:rgba(212,160,23,0.12);">⚡</div>
+      <h4>Instant Verification</h4>
+      <p>Transactions verified in under 15ms via NFC tap, QR scan, or USSD pin — even without internet.</p>
+    </div>
+    <div class="feature-full-card reveal">
+      <div class="feature-full-icon" style="background:rgba(43,92,64,0.12);">🌐</div>
+      <h4>Offline-First Architecture</h4>
+      <p>Works on 2G, USSD, and feature phones. No smartphone required for core benefit access.</p>
+    </div>
+    <div class="feature-full-card reveal">
+      <div class="feature-full-icon" style="background:rgba(193,90,46,0.12);">📣</div>
+      <h4>Multi-Language Alerts</h4>
+      <p>SMS and push notifications in English, Twi, Hausa, and French for broader workforce reach.</p>
+    </div>
+    <div class="feature-full-card reveal">
+      <div class="feature-full-icon" style="background:rgba(212,160,23,0.12);">📈</div>
+      <h4>Usage Analytics</h4>
+      <p>Employees see personal spending patterns. Employers see workforce health and utilization data.</p>
+    </div>
+    <div class="feature-full-card reveal">
+      <div class="feature-full-icon" style="background:rgba(143,175,138,0.18);">🤝</div>
+      <h4>Family Linking</h4>
+      <p>Extend benefits to dependants with configurable household sharing controls and spend limits.</p>
+    </div>
+    <div class="feature-full-card reveal">
+      <div class="feature-full-icon" style="background:rgba(43,92,64,0.12);">🔒</div>
+      <h4>Tokenized Identity</h4>
+      <p>National ID, biometric, and token-based auth layers ensure benefits reach the right person.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══ CAREERS PAGE ══ -->
+<section id="careers">
+  <div class="careers-hero">
+    <div class="reveal">
+      <span class="section-eyebrow">Join the Team</span>
+      <h2 class="section-title">Build the infrastructure<br>that <span class="accent">feeds</span> a continent.</h2>
+      <p class="section-sub" style="margin-bottom:2rem;">We're a lean, mission-driven team of engineers, product builders, and supply chain experts working from Accra to reshape how food security is structured across West Africa and beyond.</p>
+      <p class="section-sub">We hire people who think in systems, communicate with precision, and care about the outcome beyond their own output.</p>
+
+      <div class="careers-values">
+        <div class="careers-value">
+          <h4>Mission-First</h4>
+          <p>Every product decision maps to a real person whose food supply it protects or improves.</p>
+        </div>
+        <div class="careers-value">
+          <h4>Radical Transparency</h4>
+          <p>We share roadmaps, financials, and strategy with the whole team — no black boxes.</p>
+        </div>
+        <div class="careers-value">
+          <h4>Deep Ownership</h4>
+          <p>Small teams, large mandates. You own your domain end-to-end and are trusted to deliver.</p>
+        </div>
+        <div class="careers-value">
+          <h4>Pan-African Pride</h4>
+          <p>We build for the continent from the continent — local context is not optional here.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="careers-culture-box reveal">
+      <h3>Life at<br>WeFeed</h3>
+      <div class="culture-stat">
+        <div class="culture-stat-num">28<span>+</span></div>
+        <p>Team members across engineering, ops, and growth</p>
+      </div>
+      <div class="culture-stat">
+        <div class="culture-stat-num">100<span>%</span></div>
+        <p>Flexible & remote-hybrid work policy</p>
+      </div>
+      <div class="culture-stat">
+        <div class="culture-stat-num">GH₵ 500</div>
+        <p>Monthly personal food benefit for every employee</p>
+      </div>
+      <div class="culture-stat">
+        <div class="culture-stat-num">4<span> cities</span></div>
+        <p>Active team hubs: Accra, Kumasi, Lagos, Nairobi</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Job listings -->
+  <div class="reveal">
+    <p class="jobs-section-title">Open Roles</p>
+    <p class="jobs-section-sub">We're currently hiring across engineering, product, and operations.</p>
+
+    <div class="job-filters">
+      <button class="job-filter-btn active">All Roles</button>
+      <button class="job-filter-btn">Engineering</button>
+      <button class="job-filter-btn">Product</button>
+      <button class="job-filter-btn">Operations</button>
+      <button class="job-filter-btn">Growth</button>
+    </div>
+
+    <div class="jobs-list">
+      <div class="job-item">
+        <div class="job-item-left">
+          <div class="job-title">Senior Backend Engineer — Core API</div>
+          <div class="job-tags">
+            <span class="job-tag tag-dept">Engineering</span>
+            <span class="job-tag tag-loc">Accra / Remote</span>
+            <span class="job-tag tag-type">Full-time</span>
+          </div>
+        </div>
+        <a href="mailto:careers@wefeed.com.gh?subject=Application: Senior Backend Engineer" class="job-apply-btn">Apply Now →</a>
+      </div>
+      <div class="job-item">
+        <div class="job-item-left">
+          <div class="job-title">Mobile Engineer — React Native (iOS/Android)</div>
+          <div class="job-tags">
+            <span class="job-tag tag-dept">Engineering</span>
+            <span class="job-tag tag-loc">Remote</span>
+            <span class="job-tag tag-type">Full-time</span>
+          </div>
+        </div>
+        <a href="mailto:careers@wefeed.com.gh?subject=Application: Mobile Engineer" class="job-apply-btn">Apply Now →</a>
+      </div>
+      <div class="job-item">
+        <div class="job-item-left">
+          <div class="job-title">Product Manager — InsurTech Platform</div>
+          <div class="job-tags">
+            <span class="job-tag tag-dept">Product</span>
+            <span class="job-tag tag-loc">Accra</span>
+            <span class="job-tag tag-type">Full-time</span>
+          </div>
+        </div>
+        <a href="mailto:careers@wefeed.com.gh?subject=Application: Product Manager" class="job-apply-btn">Apply Now →</a>
+      </div>
+      <div class="job-item">
+        <div class="job-item-left">
+          <div class="job-title">Supply Chain Operations Lead</div>
+          <div class="job-tags">
+            <span class="job-tag tag-dept">Operations</span>
+            <span class="job-tag tag-loc">Accra / Kumasi</span>
+            <span class="job-tag tag-type">Full-time</span>
+          </div>
+        </div>
+        <a href="mailto:careers@wefeed.com.gh?subject=Application: Supply Chain Lead" class="job-apply-btn">Apply Now →</a>
+      </div>
+      <div class="job-item">
+        <div class="job-item-left">
+          <div class="job-title">Enterprise Sales Manager — B2B Corporate</div>
+          <div class="job-tags">
+            <span class="job-tag tag-dept">Growth</span>
+            <span class="job-tag tag-loc">Lagos / Accra</span>
+            <span class="job-tag tag-type">Full-time</span>
+          </div>
+        </div>
+        <a href="mailto:careers@wefeed.com.gh?subject=Application: Enterprise Sales" class="job-apply-btn">Apply Now →</a>
+      </div>
+      <div class="job-item">
+        <div class="job-item-left">
+          <div class="job-title">Data Analyst — Logistics & Risk Modeling</div>
+          <div class="job-tags">
+            <span class="job-tag tag-dept">Engineering</span>
+            <span class="job-tag tag-loc">Remote</span>
+            <span class="job-tag tag-type">Contract</span>
+          </div>
+        </div>
+        <a href="mailto:careers@wefeed.com.gh?subject=Application: Data Analyst" class="job-apply-btn">Apply Now →</a>
+      </div>
+    </div>
+
+    <div class="careers-cta">
+      <div>
+        <h4>Don't see your role?</h4>
+        <p>We're always interested in exceptional people. Send us your CV and a note about what you'd build at WeFeed.</p>
+      </div>
+      <a href="mailto:careers@wefeed.com.gh?subject=Open Application" class="btn-primary" style="white-space:nowrap; color:var(--forest-dark);">Send Open Application</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ DONATE PAGE ══ -->
+<section id="donate">
+  <div class="donate-hero reveal">
+    <span class="section-eyebrow">Support the Mission</span>
+    <h2 class="section-title">Every cedi fills a real gap.</h2>
+    <p class="section-sub" style="margin:0 auto;">WeFeed's commercial platform cross-subsidizes food access for informal workers and low-income households. Your donation directly expands that coverage.</p>
+  </div>
+
+  <div class="donate-impact-grid">
+    <div class="donate-impact-card reveal">
+      <span class="donate-impact-icon">🌽</span>
+      <span class="donate-impact-amount">GH₵ 25</span>
+      <div class="donate-impact-label">Feeds a family for a week</div>
+      <p class="donate-impact-desc">Covers essential staples for a household of 4 through our direct-sourcing network.</p>
+    </div>
+    <div class="donate-impact-card reveal">
+      <span class="donate-impact-icon">🧑‍🍳</span>
+      <span class="donate-impact-amount">GH₵ 100</span>
+      <div class="donate-impact-label">Insures a worker for a month</div>
+      <p class="donate-impact-desc">Adds one gig economy worker to our micro-insurance pool with full benefit access.</p>
+    </div>
+    <div class="donate-impact-card reveal">
+      <span class="donate-impact-icon">🚚</span>
+      <span class="donate-impact-amount">GH₵ 500</span>
+      <div class="donate-impact-label">Funds a community node</div>
+      <p class="donate-impact-desc">Connects a new neighbourhood pickup point with cold-chain routing and digital payments.</p>
+    </div>
+  </div>
+
+  <div class="donate-widget-wrapper">
+    <div class="donate-widget reveal">
+      <h3>Make a donation</h3>
+      <p class="donate-widget-sub">All donations are processed securely. WeFeed is a registered social enterprise in Ghana.</p>
+
+      <div class="donate-frequency">
+        <button class="donate-freq-btn active" onclick="setFreq(this)">One-time</button>
+        <button class="donate-freq-btn" onclick="setFreq(this)">Monthly</button>
+        <button class="donate-freq-btn" onclick="setFreq(this)">Annual</button>
+      </div>
+
+      <div class="donate-amounts">
+        <button class="donate-amount-btn active" onclick="setAmount(this)">GH₵ 25<small>Feeds 1 family</small></button>
+        <button class="donate-amount-btn" onclick="setAmount(this)">GH₵ 100<small>Insure 1 worker</small></button>
+        <button class="donate-amount-btn" onclick="setAmount(this)">GH₵ 500<small>1 community node</small></button>
+        <button class="donate-amount-btn" onclick="setAmount(this)">GH₵ 1,000<small>10 families</small></button>
+        <button class="donate-amount-btn" onclick="setAmount(this)">GH₵ 5,000<small>Enterprise tier</small></button>
+        <button class="donate-amount-btn" onclick="setAmount(this, true)">Custom</button>
+      </div>
+
+      <input type="number" class="donate-custom-input" id="donateCustom" placeholder="Enter custom amount (GH₵)" style="display:none;" />
+
+      <button class="donate-submit-btn" onclick="handleDonate()">Donate GH₵ 25 →</button>
+
+      <div class="donate-trust">
+        🔒 Secured via Paystack · Registered NGO · 100% goes to programs
+      </div>
+    </div>
+
+    <div class="donate-story reveal">
+      <div class="donate-story-quote">
+        <p>Before WeFeed, I spent half my earnings just managing food costs — there was no protection when business was slow. Now my family is covered no matter what month it is.</p>
+        <div class="donate-story-attr">— Abena K., Informal trader, Tema</div>
+      </div>
+
+      <div class="donate-progress">
+        <h4>2026 Community Coverage Goal</h4>
+        <div class="progress-bar-wrap">
+          <div class="progress-bar-fill" id="donateProgress"></div>
+        </div>
+        <div class="progress-labels">
+          <span><strong>6,200</strong> workers enrolled</span>
+          <span>Goal: <strong>10,000</strong></span>
+        </div>
+        <p style="font-size:0.82rem;color:var(--text-muted);margin-top:1rem;">Your donation helps us close the gap before December 2026.</p>
+      </div>
+
+      <div style="background:var(--forest-dark);border-radius:10px;padding:2rem;">
+        <div style="font-size:0.75rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:1rem;">Where donations go</div>
+        <div style="display:flex;flex-direction:column;gap:0.8rem;">
+          <div style="display:flex;align-items:center;gap:0.8rem;">
+            <div style="flex:1;background:rgba(255,255,255,0.06);border-radius:100px;height:8px;overflow:hidden;">
+              <div style="width:65%;height:100%;background:var(--ochre);border-radius:100px;"></div>
+            </div>
+            <span style="font-size:0.8rem;color:var(--white);font-weight:600;min-width:80px;">65% — Programs</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:0.8rem;">
+            <div style="flex:1;background:rgba(255,255,255,0.06);border-radius:100px;height:8px;overflow:hidden;">
+              <div style="width:20%;height:100%;background:var(--sage);border-radius:100px;"></div>
+            </div>
+            <span style="font-size:0.8rem;color:var(--white);font-weight:600;min-width:80px;">20% — Tech infra</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:0.8rem;">
+            <div style="flex:1;background:rgba(255,255,255,0.06);border-radius:100px;height:8px;overflow:hidden;">
+              <div style="width:15%;height:100%;background:var(--rust-light);border-radius:100px;"></div>
+            </div>
+            <span style="font-size:0.8rem;color:var(--white);font-weight:600;min-width:80px;">15% — Operations</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CONTACT PAGE ══ -->
+<section id="contact">
+  <div class="contact-inner">
+    <div class="reveal">
+      <span class="section-eyebrow">Get in Touch</span>
+      <h2 class="section-title">Let's talk<br>about what<br><span class="accent-green">you need.</span></h2>
+      <p class="section-sub" style="margin-top:1rem;">Whether you're an enterprise looking to deploy, a developer integrating our API, a journalist, or a potential partner — we respond to every message.</p>
+
+      <div class="contact-info-blocks">
+        <div class="contact-info-block">
+          <div class="contact-info-icon">📍</div>
+          <div>
+            <h4>Headquarters</h4>
+            <p>1 Aviation Social Centre Road,<br>Airport Residential Area, Accra, Ghana</p>
+          </div>
+        </div>
+        <div class="contact-info-block">
+          <div class="contact-info-icon">✉️</div>
+          <div>
+            <h4>Email Us</h4>
+            <a href="mailto:hello@wefeed.com.gh">hello@wefeed.com.gh</a><br>
+            <a href="mailto:enterprise@wefeed.com.gh">enterprise@wefeed.com.gh</a>
+          </div>
+        </div>
+        <div class="contact-info-block">
+          <div class="contact-info-icon">📞</div>
+          <div>
+            <h4>Phone & WhatsApp</h4>
+            <a href="tel:+233302000000">+233 30 200 0000</a>
+            <p style="font-size:0.78rem;color:var(--text-muted);margin-top:0.2rem;">Mon–Fri, 8 AM – 6 PM WAT</p>
+          </div>
+        </div>
+        <div class="contact-info-block">
+          <div class="contact-info-icon">🤝</div>
+          <div>
+            <h4>Partnership Inquiries</h4>
+            <a href="mailto:partnerships@wefeed.com.gh">partnerships@wefeed.com.gh</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-socials">
+        <a href="#" class="contact-social-btn" title="LinkedIn">💼</a>
+        <a href="#" class="contact-social-btn" title="Twitter/X">𝕏</a>
+        <a href="#" class="contact-social-btn" title="Instagram">📸</a>
+        <a href="#" class="contact-social-btn" title="WhatsApp">💬</a>
+      </div>
+    </div>
+
+    <div class="reveal">
+      <div class="contact-form-box" id="contactFormBox">
+        <h3>Send us a message</h3>
+        <p class="contact-form-sub">We typically respond within one business day.</p>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>First Name</label>
+            <input type="text" placeholder="Kwame" />
+          </div>
+          <div class="form-group">
+            <label>Last Name</label>
+            <input type="text" placeholder="Mensah" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Work Email</label>
+          <input type="email" placeholder="kwame@company.com" />
+        </div>
+
+        <div class="form-group">
+          <label>Company / Organisation</label>
+          <input type="text" placeholder="Your company name" />
+        </div>
+
+        <div class="form-group">
+          <label>What are you reaching out about?</label>
+          <select>
+            <option value="">Select a topic…</option>
+            <option>Enterprise Demo Request</option>
+            <option>API Integration Support</option>
+            <option>Partnership Opportunity</option>
+            <option>Donation Inquiry</option>
+            <option>Press / Media</option>
+            <option>General Inquiry</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Message</label>
+          <textarea placeholder="Tell us what you're working on or what you need…"></textarea>
+        </div>
+
+        <button class="form-submit-btn" onclick="handleContactSubmit()">Send Message →</button>
+      </div>
+
+      <div class="form-success" id="contactSuccess">
+        <div class="form-success-icon">✅</div>
+        <h4>Message Sent!</h4>
+        <p>Thank you for reaching out. A member of the WeFeed team will get back to you within one business day.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<footer>
+  <div class="footer-logo">WE<span>FEED</span></div>
+  <ul class="footer-links">
+    <li><a href="#problem">Challenge</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#solution">Platform</a></li>
+    <li><a href="#app-page">The App</a></li>
+    <li><a href="#careers">Careers</a></li>
+    <li><a href="#donate">Donate</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="footer-copy">
+    <span>© 2026 WeFeed Ltd. · Accra, Ghana</span>
+    <span>Next-Generation InsurTech Solutions · Modernizing regional supply frameworks through code</span>
+  </div>
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  reveals.forEach(el => io.observe(el));
+
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+</script>
+</body>
+</html>
